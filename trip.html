@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tokyo Trip · Jun 8–14, 2026</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --ink: #1f2430;
+    --muted: #5a6072;
+    --line: #e6e1d8;
+    --card: #ffffff;
+    --accent: #d94f70;
+    --accent-soft: #fde8ee;
+    --warn: #b76e00;
+    --warn-soft: #fff3dc;
+    --ok: #2d8a5a;
+    --ok-soft: #e3f4ea;
+    --info: #2563a8;
+    --info-soft: #e3edf9;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    padding: 16px;
+    max-width: 880px;
+    margin: 0 auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  h1 small { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 4px; }
+  h2 { font-size: 20px; margin: 28px 0 10px; }
+  h3 { font-size: 17px; margin: 14px 0 6px; }
+  p { margin: 6px 0; }
+  ul { margin: 6px 0 6px 18px; padding: 0; }
+  li { margin: 4px 0; }
+  a { color: var(--info); }
+  code { background: #f0ece3; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+
+  .top-banner {
+    background: linear-gradient(135deg, #ffd6e0 0%, #ffe9b0 100%);
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+  .top-banner b { display: block; font-size: 15px; margin-bottom: 4px; }
+
+  .todo-row { display: grid; gap: 12px; grid-template-columns: 1fr; margin: 14px 0 24px; }
+  @media (min-width: 640px) { .todo-row { grid-template-columns: 1fr 1fr; } }
+  .todo {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .todo h3 { margin: 0 0 6px; color: var(--accent); }
+  .todo .reco { background: var(--accent-soft); padding: 8px 10px; border-radius: 6px; font-size: 14px; margin-top: 8px; }
+  .todo .reco b { color: var(--accent); }
+
+  details.day {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  details.day[open] { box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  details.day > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+  }
+  details.day > summary::-webkit-details-marker { display: none; }
+  details.day > summary:hover { background: #fbf8f3; }
+  .day-head { display: flex; flex-direction: column; }
+  .day-date { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .day-title { font-weight: 600; font-size: 16px; margin-top: 2px; }
+  .day-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--info-soft);
+    color: var(--info);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .day-tag.lazy { background: var(--ok-soft); color: var(--ok); }
+  .day-tag.big { background: var(--accent-soft); color: var(--accent); }
+  .day-tag.transit { background: var(--warn-soft); color: var(--warn); }
+  .day-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+
+  .vibe {
+    background: var(--ok-soft);
+    color: var(--ok);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  .vibe b { color: var(--ok); }
+
+  .timeline { margin: 12px 0; }
+  .timeline .row {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .timeline .row:last-child { border-bottom: none; }
+  .timeline .when { font-weight: 600; color: var(--muted); font-size: 13px; }
+  .timeline .what { font-size: 14px; }
+
+  .ref {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #f6f2ea;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .ref b { color: var(--ink); }
+
+  .footer-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+    margin-top: 14px;
+  }
+  @media (min-width: 640px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .footer-card h3 { margin: 0 0 6px; font-size: 15px; }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #eee;
+    color: #555;
+    margin-right: 4px;
+  }
+
+  hr { border: none; border-top: 1px solid var(--line); margin: 26px 0 8px; }
+
+  .ph-note { color: var(--muted); font-size: 13px; font-style: italic; }
+
+  /* Data plan comparison */
+  .data-pick {
+    background: linear-gradient(135deg, #e3f4ea 0%, #d4e8f5 100%);
+    border-left: 4px solid var(--ok);
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin: 12px 0 16px;
+    font-size: 14px;
+  }
+  .data-pick b { color: var(--ok); }
+  .data-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    margin: 14px 0;
+  }
+  @media (min-width: 720px) { .data-grid { grid-template-columns: 1fr 1fr; } }
+  .data-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .data-card.is-best {
+    border-color: var(--ok);
+    border-width: 2px;
+    box-shadow: 0 0 0 4px var(--ok-soft);
+  }
+  .data-card .best-flag {
+    position: absolute;
+    top: -10px; right: 12px;
+    background: var(--ok);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+  }
+  .data-card .opt-head {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .data-card .opt-name { font-weight: 600; font-size: 15px; }
+  .data-card .opt-name small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .data-card .opt-cost {
+    font-size: 12px;
+    padding: 3px 9px;
+    background: #f0ece3;
+    border-radius: 999px;
+    color: var(--ink);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+  .data-card.is-best .opt-cost { background: var(--ok); color: #fff; }
+  .data-card .coverage { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; }
+  .cov-pill {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #f4f1ea;
+    color: var(--muted);
+  }
+  .cov-pill.yes { background: var(--ok-soft); color: var(--ok); font-weight: 500; }
+  .cov-pill.no { background: #fde7e7; color: #b03030; font-weight: 500; }
+  .cov-pill.partial { background: var(--warn-soft); color: var(--warn); font-weight: 500; }
+  .data-card .why { font-size: 13px; line-height: 1.5; margin: 4px 0 8px; color: #3a3f4d; }
+  .data-card .meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+  }
+  .skip-note {
+    font-size: 13px;
+    color: var(--muted);
+    background: #f6f2ea;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🗼 Tokyo Trip
+  <small>Jun 8–14, 2026 · Ye Yin + Andy (8) + Katherine (4) · lazy/casual mode</small>
+</h1>
+
+<div class="top-banner">
+  <b>Travel philosophy for this trip</b>
+  Solo parent + 2 kids. No itinerary heroics. One “main thing” per day, long naps, snacks always within reach, taxi when the alternative is hauling luggage with two tired kids. Pokémon and Mickey win; museums don’t.
+</div>
+
+<h2>📌 Two things still to handle</h2>
+<div class="todo-row">
+
+  <div class="todo">
+    <h3>① Disney tickets</h3>
+    <p>Tokyo Disneyland (recommended over DisneySea for a 4yo) — tickets are date-stamped and dynamically priced.</p>
+    <ul>
+      <li><b>Recommended day:</b> <b>Friday Jun 12</b> (off-peak vs Saturday)</li>
+      <li><b>Buy:</b> 1 Adult + 2 Child (4–11). Katherine (4) is the youngest paid tier; under-4 would be free.</li>
+      <li><b>Cost estimate:</b> ¥7,900–10,900 adult + 2 × ¥4,700–5,600 child = <b>~¥17,300–22,100 (~$115–148)</b></li>
+      <li><b>Where:</b> <a href="https://www.tokyodisneyresort.jp/en/ticket/" target="_blank" rel="noopener">tokyodisneyresort.jp/en/ticket</a> — MyDisney account required, tickets become QR codes in the app.</li>
+      <li><b>When to buy:</b> 1–3 days ahead is fine. Don’t buy now; cheaper to wait and see weather/energy. They sell out only on holidays/weekends, not weekday June.</li>
+    </ul>
+    <div class="reco"><b>Just-decide-now option:</b> buy Fri Jun 12 Disneyland 1-Day Passport × (1 adult + 2 child) on the evening of Jun 10 once you’ve seen the weather and the kids’ recovery from jetlag.</div>
+  </div>
+
+  <div class="todo">
+    <h3>② Commute card (Suica / Pasmo)</h3>
+    <p>Yes, get one — flat-rate trains, buses, vending machines, conbini all tap-to-pay. Saves the “buy individual tickets with two kids in tow” pain.</p>
+    <ul>
+      <li><b>Easiest (zero physical card):</b> Add <b>Mobile Suica to iPhone Wallet</b> before you leave SFO — Wallet → + → Transit Card → Suica → load any ¥ amount with Apple Pay. Tap your phone at the gate.</li>
+      <li><b>Kids:</b> kids 6+ ride at child fare (Andy). Under 6 (Katherine) is free with an adult. Mobile Suica doesn’t support child accounts — just buy Andy a paper child ticket at the machine (or skip — short rides are ¥150, not worth the friction).</li>
+      <li><b>Backup paper option:</b> grab a <b>Welcome Suica</b> at NRT (JR East Travel Service Center, arrivals) — no ¥500 deposit, valid 28 days. Perfect for a kid to have their own.</li>
+      <li><b>Realistic load:</b> ¥3,000 per card to start; top up at any station.</li>
+    </ul>
+    <div class="reco"><b>Just-decide-now option:</b> Mobile Suica on your iPhone tonight (5 min, no Japan needed). At NRT, grab one Welcome Suica for Andy so he feels official. Skip a card for Katherine.</div>
+  </div>
+
+</div>
+
+<h2>📶 Data plan — pick one</h2>
+<p class="ph-note">You go Japan → China. China blocks Google, Maps, Gmail, WhatsApp without a workaround — so a plan that handles <b>both legs</b> wins. Most "Japan eSIM" articles miss this for your situation.</p>
+
+<div class="data-pick">
+  <b>🏆 Recommended for this trip: Google Fi.</b>
+  One plan covers both countries, and in China it tunnels through Google's network — so Gmail, Maps, YouTube just work, with no separate VPN to install or troubleshoot at 4am with two jet-lagged kids. Add a line online (~$50 for the month), use eSIM activation, cancel after the trip. iPhone-friendly.
+</div>
+
+<div class="data-grid">
+
+  <div class="data-card is-best">
+    <span class="best-flag">RECOMMENDED</span>
+    <div class="opt-head">
+      <div class="opt-name">Google Fi — Unlimited Essentials<small>add-a-line via google.com/fi</small></div>
+      <span class="opt-cost">~$50 / mo</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓</span>
+      <span class="cov-pill yes">🇨🇳 China ✓ no VPN needed</span>
+      <span class="cov-pill yes">Hotspot ✓</span>
+    </div>
+    <p class="why">The only mainstream plan that solves <i>both</i> countries cleanly. Throttles to 256 kbps after 50 GB — irrelevant for 12 days. Best for a lazy multi-country trip.</p>
+    <div class="meta">Setup: ~10 min, eSIM. Cancel/pause after trip — no contract.</div>
+  </div>
+
+  <div class="data-card">
+    <div class="opt-head">
+      <div class="opt-name">Airalo eSIM — Moshi Moshi Japan<small>cheapest popular Japan eSIM</small></div>
+      <span class="opt-cost">~$5–20</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓</span>
+      <span class="cov-pill no">🇨🇳 China ✗</span>
+      <span class="cov-pill yes">Hotspot ✓</span>
+    </div>
+    <p class="why">Buy & install before leaving SFO. 1–10 GB for 7 days. You'd need a <i>separate</i> Airalo China eSIM (~$10) for the Shenyang leg, AND still install a VPN — Airalo doesn't bypass the Great Firewall.</p>
+    <div class="meta">Best for: cheapest Japan-only and you'll handle China yourself.</div>
+  </div>
+
+  <div class="data-card">
+    <div class="opt-head">
+      <div class="opt-name">Holafly Japan + China combo<small>unlimited eSIM, no VPN needed</small></div>
+      <span class="opt-cost">~$80–120</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓ unlimited</span>
+      <span class="cov-pill yes">🇨🇳 China ✓ via proxy</span>
+      <span class="cov-pill partial">Hotspot limited</span>
+    </div>
+    <p class="why">The eSIM-only equivalent of Google Fi for this trip: unlimited data both countries, China traffic routed through their server so Google works. Hotspot/tethering is restricted on most Holafly plans — check before buying.</p>
+    <div class="meta">Best for: if you don't want to add a phone line.</div>
+  </div>
+
+  <div class="data-card">
+    <div class="opt-head">
+      <div class="opt-name">AT&T / Verizon Day Pass<small>your current carrier, "just turn it on"</small></div>
+      <span class="opt-cost">$10 / day · ~$120</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓</span>
+      <span class="cov-pill partial">🇨🇳 China ✓ but blocked apps blocked</span>
+      <span class="cov-pill yes">Hotspot ✓</span>
+    </div>
+    <p class="why">Zero setup — your phone just works on arrival. But in China you're still hitting the Firewall (no Gmail/Maps without a VPN you've pre-installed). And ~$120 for the trip is meh.</p>
+    <div class="meta">Best for: total laziness, China leg short enough that you tolerate VPN annoyance.</div>
+  </div>
+
+  <div class="data-card">
+    <div class="opt-head">
+      <div class="opt-name">T-Mobile Magenta / Go5G<small>only if you already have it</small></div>
+      <span class="opt-cost">$0 included</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓ slow</span>
+      <span class="cov-pill yes">🇨🇳 China ✓ slow, Google works</span>
+      <span class="cov-pill yes">Hotspot ✓</span>
+    </div>
+    <p class="why">~256 kbps — fine for maps, messaging, and tickets, painful for video. Bonus: T-Mobile routes traffic outside China so Google works without a VPN. Free is free.</p>
+    <div class="meta">Best for: already-T-Mobile subscribers, or as a backup line.</div>
+  </div>
+
+  <div class="data-card">
+    <div class="opt-head">
+      <div class="opt-name">Pocket WiFi rental<small>Ninja WiFi / Sakura Mobile</small></div>
+      <span class="opt-cost">~$60–100</span>
+    </div>
+    <div class="coverage">
+      <span class="cov-pill yes">🇯🇵 Japan ✓ fast unlimited</span>
+      <span class="cov-pill no">🇨🇳 China ✗</span>
+      <span class="cov-pill yes">Hotspot ✓ (it IS one)</span>
+    </div>
+    <p class="why">A separate brick to charge nightly and return at NRT on Jun 14. Adds a step to checkout. Outdated for solo-with-kids — eSIM beats it.</p>
+    <div class="meta">Best for: groups of 4+ sharing one connection. Skip for this trip.</div>
+  </div>
+
+</div>
+
+<div class="skip-note">
+  <b>Bottom line:</b> if you want zero thinking — <b>Google Fi</b>. If you don't want another phone line — <b>Holafly Japan+China</b>. If you're trying to spend nothing — already-have-T-Mobile, then deal with kids' devices on hotel WiFi. <br>
+  <b>What you actually download:</b> nothing called "Google app data" — Google offers two products people confuse: <i>Google Fi</i> (their MVNO carrier service, eSIM you activate) and <i>Google Maps offline</i> (free, download Tokyo + Shenyang regions in the Maps app before you fly — do this either way).
+</div>
+
+<h2>📅 Day by day</h2>
+<p class="ph-note">Tap a day to expand. Times are loose — built for naps, snack stops, and weather audibles.</p>
+
+<!-- DAY 1 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Mon · Jun 8</span>
+      <span class="day-title">Day 1 — SFO → in flight</span>
+    </div>
+    <span class="day-tag transit">✈ transit</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> survive. Don’t over-engineer it.</div>
+    <div class="timeline">
+      <div class="row"><div class="when">~9:30 AM</div><div class="what">Leave for SFO (target arrival 10:30 AM = 2 hrs before)</div></div>
+      <div class="row"><div class="when">10:30 AM</div><div class="what">United check-in, then security. Pre-Check if available — saves a lot with two kids.</div></div>
+      <div class="row"><div class="when">12:25 PM</div><div class="what"><b>UA837</b> depart · seats <b>57D / 57E / 57F</b> · 777-300ER · 10h 35m</div></div>
+      <div class="row"><div class="when">in flight</div><div class="what">Snacks/iPad → meal → lights off → sleep as long as possible. Set watches to Tokyo (+16h) at takeoff so you don’t do the math.</div></div>
+    </div>
+    <div class="ref"><b>Confirmation:</b> UA <code>••••••</code> (in your email/Wallet) · keep boarding passes in Wallet</div>
+  </div>
+</details>
+
+<!-- DAY 2 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Tue · Jun 9</span>
+      <span class="day-title">Day 2 — Arrive Narita → MIMARU Ginza East</span>
+    </div>
+    <span class="day-tag transit">✈ + check-in</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> get to the room and crash. No sightseeing today.</div>
+    <div class="timeline">
+      <div class="row"><div class="when">3:00 PM</div><div class="what">Land at NRT. Immigration → bags → SIM/eSIM check.</div></div>
+      <div class="row"><div class="when">at arrivals</div><div class="what">JR East Travel Service Center → <b>grab Welcome Suica for Andy</b>, load ¥3,000. Activate your Mobile Suica.</div></div>
+      <div class="row"><div class="when">4:00–5:00 PM</div><div class="what"><b>Take the Narita Express (N’EX) to Tokyo Station</b> — reserved seats, luggage rack, ~60 min, kids can zone out. Tickets at the JR counter, ~¥3,000/adult + ½ child.</div></div>
+      <div class="row"><div class="when">~7:00 PM</div><div class="what"><b>Taxi from Tokyo Station → MIMARU Ginza East</b> (5–10 min, ¥1,500–2,000). Show driver: <span lang="ja">中央区新富1-4-4</span></div></div>
+      <div class="row"><div class="when">7:30 PM</div><div class="what">Check in (conf in your email). Pokémon Room reveal! Kids lose their minds.</div></div>
+      <div class="row"><div class="when">8:00 PM</div><div class="what">FamilyMart run — onigiri, fruit, snacks. Eat in room, bath, bed.</div></div>
+    </div>
+    <div class="ref">
+      <b>MIMARU Tokyo Ginza East</b> · 1-4-4 Shintomi, Chuo-ku · ☎ 03-6280-4017 · Check-in 15:00 / out 11:00<br>
+      <span class="pill">night 1 of 2</span> <span class="pill">full kitchen</span> <span class="pill">washer/dryer</span>
+    </div>
+  </div>
+</details>
+
+<!-- DAY 3 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Wed · Jun 10</span>
+      <span class="day-title">Day 3 — Pokémon Center + one chill thing</span>
+    </div>
+    <span class="day-tag big">⭐ main</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> one big thing in the morning, nap, one easy thing after. Jet-lagged kids = early start, early collapse.</div>
+    <h3>Morning — Pokémon Center DX (Nihonbashi)</h3>
+    <ul>
+      <li><b>Pokémon Center Mega Tokyo</b> is in Sunshine City Ikebukuro (longer trip). For your hotel, the closer one is <b>Pokémon Center Tokyo DX</b> in Nihonbashi Takashimaya — ~10 min walk from MIMARU. Easier.</li>
+      <li>Budget ~¥5,000–10,000 for plushies/cards. Andy will want to live there.</li>
+      <li><b>Tap Suica on Yodobashi / convenience stops</b> on the way.</li>
+    </ul>
+    <h3>Lunch + nap (back at MIMARU)</h3>
+    <p>Use the kitchen. Katherine naps 12:30–2:00. You nap too. Yes you.</p>
+    <h3>Afternoon — pick ONE (in order of laziness)</h3>
+    <ul>
+      <li><b>Laziest:</b> Hama-rikyu Gardens (10 min walk, big grassy space, kids run free). ¥300 entry.</li>
+      <li><b>Medium:</b> Asakusa & Senso-ji — ~25 min by subway (Hibiya/Asakusa line). Pretty but tiring.</li>
+      <li><b>Skip if grumpy:</b> just walk Ginza, get crepes, call it a day.</li>
+    </ul>
+    <div class="ref"><b>Tonight:</b> dinner via the kitchen or a kid-friendly ramen shop. Pack tomorrow’s clothes — you check out at 11.</div>
+  </div>
+</details>
+
+<!-- DAY 4 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Thu · Jun 11</span>
+      <span class="day-title">Day 4 — MIMARU → Hilton Tokyo Bay</span>
+    </div>
+    <span class="day-tag transit">🚕 transfer</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> move bases. Travel day = no big plans.</div>
+    <div class="timeline">
+      <div class="row"><div class="when">~10 AM</div><div class="what">Check out of MIMARU.</div></div>
+      <div class="row"><div class="when">10:30–noon</div><div class="what"><b>Taxi to Hilton Tokyo Bay</b> (~45 min, ¥5,000–7,000). Show driver: <span lang="ja">千葉県浦安市舞浜1-8 ヒルトン東京ベイ</span>. Worth every yen vs train transfer with luggage.</div></div>
+      <div class="row"><div class="when">3 PM</div><div class="what">Official check-in at Hilton (conf in your Expedia app). If room ready early, they’ll let you store bags or check in early.</div></div>
+      <div class="row"><div class="when">afternoon</div><div class="what"><b>Pool / kids’ play area at the hotel.</b> Walk over and look at Disneyland from outside — builds tomorrow’s anticipation without paying.</div></div>
+      <div class="row"><div class="when">eve</div><div class="what">Hotel restaurant or buffet. Free breakfast included is for tomorrow — sleep early.</div></div>
+    </div>
+    <div class="ref">
+      <b>Hilton Tokyo Bay</b> · 1-8 Maihama, Urayasu, Chiba 279-0031 · Family Happy Magic Ocean View · free breakfast<br>
+      <span class="pill">night 1 of 3</span>
+      ⚠️ <b>Kids ≤9 not allowed on top bunk</b> — Andy sleeps bottom.
+    </div>
+  </div>
+</details>
+
+<!-- DAY 5 -->
+<details class="day" open>
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Fri · Jun 12</span>
+      <span class="day-title">Day 5 — Tokyo Disneyland 🏰</span>
+    </div>
+    <span class="day-tag big">⭐ THE day</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> the trip’s big moment. Pace > coverage. Half-day energy, not 12-hour marathon.</div>
+    <h3>Lazy Disney rules</h3>
+    <ul>
+      <li>Arrive at park open (~9 AM) for ONE popular ride before the line bloats.</li>
+      <li>Plan a <b>midday return to Hilton</b> (12:30–2:30) for nap + AC. Re-enter park after with same ticket.</li>
+      <li>Quit by 6 PM — fireworks aren’t worth a meltdown.</li>
+      <li>Bring: water bottles (free refills), snacks, sunscreen, hats, stroller for Katherine if you have one (rentals available).</li>
+    </ul>
+    <h3>Rides that work for both kids (4 & 8)</h3>
+    <ul>
+      <li>It’s a Small World, Pooh’s Hunny Hunt, Peter Pan’s Flight, Jungle Cruise, Western River Railroad, Haunted Mansion, Pirates, Mickey’s PhilharMagic. Tea cups if you’re brave.</li>
+      <li>Andy might want Splash / Big Thunder — height-OK; Katherine waits with you or grabs a Mickey waffle.</li>
+    </ul>
+    <h3>Premier Access (paid skip-line)</h3>
+    <p>One per popular ride is fine; don’t go crazy. Buy in the Tokyo Disney Resort app once you’re in the park.</p>
+    <div class="ref"><b>Tickets:</b> buy the night of Jun 10 or morning of Jun 11 → see top-of-page todo.</div>
+  </div>
+</details>
+
+<!-- DAY 6 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Sat · Jun 13</span>
+      <span class="day-title">Day 6 — Hilton pool / recover</span>
+    </div>
+    <span class="day-tag lazy">🛀 rest</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> intentional do-nothing day. You’ll thank yourself at the airport tomorrow.</div>
+    <ul>
+      <li>Sleep in. Long Hilton breakfast (it’s included — use it).</li>
+      <li>Pool / kids’ play area. Long bath.</li>
+      <li>Optional: <b>Ikspiari</b> mall (the Disney-adjacent shopping/dining complex, free entry) for souvenirs without going back into the park.</li>
+      <li><b>Pack tonight.</b> 5 AM tomorrow comes fast.</li>
+    </ul>
+    <h3>Skip-DisneySea reasoning (for the guilt)</h3>
+    <p>DisneySea is a teens-and-up park; Katherine would be bored on half of it, and Andy will be wiped from Day 5. Two parks in 2 days with one parent + 2 kids is hardcore mode. The Hilton pool wins.</p>
+    <div class="ref"><b>Tonight, prep:</b> passports + tickets in one folder. CZ628 confirmation in your email. Suitcases by the door. Charge phones.</div>
+  </div>
+</details>
+
+<!-- DAY 7 -->
+<details class="day">
+  <summary>
+    <div class="day-head">
+      <span class="day-date">Sun · Jun 14</span>
+      <span class="day-title">Day 7 — Hilton → NRT → Shenyang</span>
+    </div>
+    <span class="day-tag transit">✈ transit</span>
+  </summary>
+  <div class="day-body">
+    <div class="vibe"><b>Vibe:</b> get to NRT calmly. China Southern, terminal 1.</div>
+    <div class="timeline">
+      <div class="row"><div class="when">~8 AM</div><div class="what">Breakfast at Hilton (included). Pack last bits.</div></div>
+      <div class="row"><div class="when">9:30 AM</div><div class="what">Hilton checkout (noon is the official deadline; doing it earlier gives a buffer).</div></div>
+      <div class="row"><div class="when">9:45 AM</div><div class="what"><b>Airport Limousine Bus or taxi to NRT Terminal 1.</b> Limousine Bus from Bayside (Disney/Hilton area) → NRT direct is the most family-friendly option. ~70–90 min. Or taxi ~¥20–25k. Pre-book at the Hilton concierge.</div></div>
+      <div class="row"><div class="when">11:30 AM</div><div class="what">NRT Terminal 1 — China Southern check-in. Bag allowance: carry-on 8kg, 2 checked × 23kg free per ticket. Plenty.</div></div>
+      <div class="row"><div class="when">12:30 PM</div><div class="what">Security + immigration. Lunch at a gate-side spot. Kids bathroom one more time.</div></div>
+      <div class="row"><div class="when">1:50 PM</div><div class="what"><b>CZ628</b> depart NRT → 4:05 PM arrive SHE Taoxian. 3h 15m.</div></div>
+    </div>
+    <div class="ref">
+      <b>Tip:</b> Drain Mobile Suica balance into a conbini purchase at the airport (sandwich + drinks) so you don’t carry leftover yen as digital dust. Welcome Suica auto-expires in 28 days; no need to refund.<br>
+      <b>Conf:</b> CZ & Expedia codes in your email/app
+    </div>
+  </div>
+</details>
+
+<hr>
+
+<h2>🧰 Always-handy reference</h2>
+<div class="footer-grid">
+
+  <div class="footer-card">
+    <h3>Bookings (one-glance)</h3>
+    <ul>
+      <li>UA837 SFO→NRT · conf in email</li>
+      <li>MIMARU Ginza East Jun 9–11 · conf in email</li>
+      <li>Hilton Tokyo Bay Jun 11–14 · conf in Expedia app</li>
+      <li>CZ628 NRT→SHE · conf in email</li>
+    </ul>
+  </div>
+
+  <div class="footer-card">
+    <h3>Hotel addresses (show to taxi)</h3>
+    <p><b>MIMARU Ginza East</b><br><span lang="ja">中央区新富1-4-4</span><br>☎ 03-6280-4017</p>
+    <p><b>Hilton Tokyo Bay</b><br><span lang="ja">千葉県浦安市舞浜1-8</span></p>
+  </div>
+
+  <div class="footer-card">
+    <h3>If something goes sideways</h3>
+    <ul>
+      <li>🚑 Ambulance Japan: <b>119</b> · Police: <b>110</b></li>
+      <li>US Embassy Tokyo: +81 3-6213-0200</li>
+      <li>Expedia 24/7: 1-877-787-3117</li>
+      <li>Hilton Bay front desk: ask concierge for direct line</li>
+    </ul>
+  </div>
+
+  <div class="footer-card">
+    <h3>Money quick rules</h3>
+    <ul>
+      <li>Most places now take card; conbini definitely. No tipping anywhere.</li>
+      <li>7-Eleven ATMs accept US cards. Pull ¥30–40k cash on Day 2.</li>
+      <li>Watch for cash-only ramen/izakaya in alleys.</li>
+    </ul>
+  </div>
+
+  <div class="footer-card">
+    <h3>Kid logistics</h3>
+    <ul>
+      <li>Hilton: Andy <b>bottom bunk only</b> (under-10 rule).</li>
+      <li>Pack: 1 backup outfit per kid in your day bag always.</li>
+      <li>Wet wipes &gt; everything.</li>
+      <li>Katherine fare-free on trains (under 6).</li>
+    </ul>
+  </div>
+
+  <div class="footer-card">
+    <h3>Pre-flight checklist (do this week)</h3>
+    <ul>
+      <li>Data plan picked & eSIM installed (see comparison above) ☐</li>
+      <li>Mobile Suica added to your iPhone Wallet ☐</li>
+      <li>Tokyo Disney Resort app installed, MyDisney account created ☐</li>
+      <li>Google Translate offline JP pack downloaded ☐</li>
+      <li>Google Maps: download Tokyo & Shenyang offline regions ☐</li>
+      <li>Notify bank of travel ☐</li>
+      <li>Charge & pack iPad + battery brick ☐</li>
+    </ul>
+  </div>
+
+</div>
+
+<p class="ph-note" style="text-align:center; margin-top: 24px;">
+  Generated locally · open this file (<code>trip.html</code>) on your phone before the trip — fully offline.
+</p>
+
+</body>
+</html>

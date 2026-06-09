@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>Tokyo · Jun 10–11 — Ginza Day + Move to Hilton Bay</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --ink: #1f2430;
+    --muted: #5a6072;
+    --line: #e6e1d8;
+    --card: #ffffff;
+    --accent: #d94f70;
+    --accent-soft: #fde8ee;
+    --warn: #b76e00;
+    --warn-soft: #fff3dc;
+    --ok: #2d8a5a;
+    --ok-soft: #e3f4ea;
+    --info: #2563a8;
+    --info-soft: #e3edf9;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    padding: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { font-size: 25px; margin: 8px 0 4px; line-height: 1.25; }
+  h1 small { display: block; font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 6px; }
+  h2 { font-size: 20px; margin: 30px 0 10px; }
+  h3 { font-size: 16px; margin: 16px 0 6px; }
+  p { margin: 7px 0; }
+  ul { margin: 6px 0 6px 18px; padding: 0; }
+  li { margin: 5px 0; }
+  a { color: var(--info); }
+  code, .ja { background: #f0ece3; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+  .ja { font-size: 15px; }
+
+  .top-banner {
+    background: linear-gradient(135deg, #ffd6e0 0%, #ffe9b0 100%);
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin: 8px 0 18px;
+    font-size: 14px;
+  }
+  .top-banner b { display: block; font-size: 15px; margin-bottom: 4px; }
+
+  /* Map action buttons */
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--info);
+    -webkit-tap-highlight-color: rgba(0,0,0,.06);
+  }
+  .btn.go { background: var(--info); color: #fff; border-color: var(--info); }
+  .btn.map { background: var(--ok-soft); color: var(--ok); border-color: #bfe3cd; }
+  .btn.apple { background: #f1f1f4; color: #333; border-color: #ddd; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 12px 0;
+  }
+  .card.rec { border-color: var(--ok); border-width: 2px; box-shadow: 0 0 0 4px var(--ok-soft); }
+  .card .opt-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card .opt-name { font-weight: 700; font-size: 16px; }
+  .card .opt-cost {
+    font-size: 12px; padding: 4px 10px; background: #f0ece3; border-radius: 999px;
+    white-space: nowrap; font-weight: 600;
+  }
+  .card.rec .opt-cost { background: var(--ok); color: #fff; }
+  .flag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em;
+    background: var(--ok); color: #fff; padding: 3px 9px; border-radius: 999px; margin-bottom: 6px;
+  }
+
+  /* Step list */
+  .steps { counter-reset: step; margin: 10px 0; padding: 0; list-style: none; }
+  .steps > li {
+    position: relative; padding: 4px 0 12px 38px; margin: 0;
+    border-left: 2px solid var(--line); margin-left: 13px;
+  }
+  .steps > li:last-child { border-left: 2px solid transparent; }
+  .steps > li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: -14px; top: 0;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--info); color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { color: var(--ink); }
+  .steps .sub { color: var(--muted); font-size: 13px; }
+
+  .mapwrap { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 12px 0; background:#e9e9e9; }
+  .mapwrap iframe { display: block; width: 100%; height: 230px; border: 0; }
+  .mapcap { font-size: 12px; color: var(--muted); padding: 7px 10px; background: #f6f2ea; }
+
+  .note { background: var(--info-soft); color: #1d456f; padding: 10px 12px; border-radius: 8px; font-size: 14px; margin: 10px 0; }
+  .warn { background: var(--warn-soft); color: var(--warn); padding: 10px 12px; border-radius: 8px; font-size: 14px; margin: 10px 0; }
+  .ok    { background: var(--ok-soft);  color: var(--ok);  padding: 10px 12px; border-radius: 8px; font-size: 14px; margin: 10px 0; }
+
+  .timeline .row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+  .timeline .row:last-child { border-bottom: none; }
+  .timeline .when { font-weight: 700; color: var(--muted); font-size: 13px; }
+  .timeline .what { font-size: 14px; }
+
+  .place { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
+  .place:first-of-type { border-top: none; }
+  .place h3 { margin: 0 0 2px; }
+  .place .meta { font-size: 13px; color: var(--muted); }
+
+  .ref { margin-top: 10px; padding: 12px 14px; background: #f6f2ea; border-radius: 10px; font-size: 13px; color: var(--muted); }
+  .ref b { color: var(--ink); }
+  .pill { display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; background:#eee; color:#555; margin:2px 4px 2px 0; }
+  hr { border: none; border-top: 1px solid var(--line); margin: 28px 0 8px; }
+  .foot { text-align:center; color: var(--muted); font-size: 13px; margin-top: 26px; }
+  .toc { display:flex; flex-wrap:wrap; gap:8px; margin: 10px 0 4px; }
+  .toc a { text-decoration:none; font-size:13px; font-weight:600; background:#fff; border:1px solid var(--line); padding:7px 12px; border-radius:999px; }
+</style>
+</head>
+<body>
+
+<h1>🗼 Tokyo · Jun 10–11
+  <small>Today in Ginza (Pokémon + sights) → tomorrow’s move to Hilton Tokyo Bay. Tap any blue button to open live directions.</small>
+</h1>
+
+<div class="toc">
+  <a href="#today">📍 Today (Jun 10)</a>
+  <a href="#move">🚕 Tomorrow’s move</a>
+  <a href="#luggage">🧳 Luggage</a>
+  <a href="#gap">⏳ The 11–3 gap</a>
+  <a href="#ref">🧰 Reference</a>
+</div>
+
+<div class="top-banner">
+  <b>The two-line summary</b>
+  <b>Today:</b> Pokémon Center DX (Nihonbashi, 10 min away) + Tsukiji market / Hamarikyu garden — all walkable from Ginza.<br>
+  <b>Tomorrow:</b> check out 11 AM → easiest is a <b>taxi straight to Hilton (~45 min)</b> with the kids + bags. Drop bags at Hilton from 7 AM, kill the gap at Ikspiari mall, check in 3 PM.
+</div>
+
+<!-- ============================ TODAY ============================ -->
+<h2 id="today">📍 Today — Jun 10 · around Ginza</h2>
+<p>You’re staying at <b>MIMARU Tokyo Ginza East</b> (<span class="ja">中央区新富1-4-4</span>). Everything below is walkable or one short ride. Suggested loop: <b>Tsukiji market (morning) → Pokémon Center DX → Hamarikyu garden / Ginza stroll</b>.</p>
+
+<div class="card">
+  <div class="place">
+    <h3>① Pokémon Center TOKYO DX ⭐</h3>
+    <div class="meta">Nihonbashi Takashimaya S.C. East Bldg, 5F · ~10 min walk / 1 stop from Ginza · open <b>10:30–21:00</b> · free entry, no reservation</div>
+    <p>The flagship Pokémon store in Tokyo — the closest one to your hotel and the “Pokémon park” for the kids. There is <b>no Pokémon theme park</b> in Tokyo; this is the main event.</p>
+    <div class="warn">⚠️ The attached <b>Pokémon Café is closed for renovation through Jun 16</b> (reopens Jun 17), so café meals aren’t available today — but the store is fully open.</div>
+    <div class="btns">
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Pokemon+Center+Tokyo+DX+Nihonbashi+Takashimaya" target="_blank" rel="noopener">📍 Google Maps</a>
+      <a class="btn go" href="https://www.google.com/maps/dir/?api=1&origin=Mimaru+Tokyo+Ginza+East&destination=Pokemon+Center+Tokyo+DX+Nihonbashi+Takashimaya&travelmode=walking" target="_blank" rel="noopener">🧭 Walk from hotel</a>
+    </div>
+  </div>
+
+  <div class="place">
+    <h3>② Tsukiji Outer Market 🍣</h3>
+    <div class="meta">~10 min walk from the hotel · best in the morning, many stalls wind down by early afternoon</div>
+    <p>Street food, fresh sushi, tamagoyaki on a stick, grilled skewers — easy, kid-friendly grazing. Go before the Pokémon Center if you want it lively.</p>
+    <div class="btns">
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Tsukiji+Outer+Market" target="_blank" rel="noopener">📍 Google Maps</a>
+      <a class="btn go" href="https://www.google.com/maps/dir/?api=1&origin=Mimaru+Tokyo+Ginza+East&destination=Tsukiji+Outer+Market&travelmode=walking" target="_blank" rel="noopener">🧭 Walk from hotel</a>
+    </div>
+  </div>
+
+  <div class="place">
+    <h3>③ Hama-rikyu Gardens 🌳</h3>
+    <div class="meta">~15 min walk · ¥300 adult, kids free · big open lawns + a teahouse on the pond</div>
+    <p>The laziest afternoon pick: lots of room for the kids to run, benches for you, a calm bayside garden. Pairs well after Tsukiji.</p>
+    <div class="btns">
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Hamarikyu+Gardens" target="_blank" rel="noopener">📍 Google Maps</a>
+      <a class="btn go" href="https://www.google.com/maps/dir/?api=1&origin=Mimaru+Tokyo+Ginza+East&destination=Hamarikyu+Gardens&travelmode=walking" target="_blank" rel="noopener">🧭 Walk from hotel</a>
+    </div>
+  </div>
+
+  <div class="place">
+    <h3>④ Optional bigger sights</h3>
+    <ul>
+      <li><b>teamLab Planets (Toyosu)</b> — immersive digital art, huge kid hit; book a time slot online first. ~20 min by train. <a href="https://www.google.com/maps/search/?api=1&query=teamLab+Planets+Toyosu" target="_blank" rel="noopener">map</a></li>
+      <li><b>Asakusa &amp; Senso-ji temple</b> — classic Tokyo, ~20 min by subway. <a href="https://www.google.com/maps/search/?api=1&query=Sensoji+Temple+Asakusa" target="_blank" rel="noopener">map</a></li>
+      <li><b>Ginza itself</b> — Ginza Six, Itoya stationery, crepes. Zero effort, right outside the door.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================ THE MOVE ============================ -->
+<h2 id="move">🚕 Tomorrow — Jun 11 · MIMARU Ginza → Hilton Tokyo Bay</h2>
+<p><b>From:</b> MIMARU Tokyo Ginza East · <span class="ja">中央区新富1-4-4</span><br>
+<b>To:</b> Hilton Tokyo Bay · <span class="ja">千葉県浦安市舞浜1-8</span> · 1-8 Maihama, Urayasu, Chiba 279-0031</p>
+
+<div class="mapwrap">
+  <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=139.735%2C35.610%2C139.905%2C35.695&layer=mapnik&marker=35.6281%2C139.8857"></iframe>
+  <div class="mapcap">Overview: Ginza (left) → Maihama / Hilton Tokyo Bay (right, pin). ~12 km east along Tokyo Bay.</div>
+</div>
+
+<!-- Option A: Taxi -->
+<div class="card rec">
+  <span class="flag">RECOMMENDED WITH KIDS + BAGS</span>
+  <div class="opt-head">
+    <div class="opt-name">Option A — Taxi door-to-door 🚕</div>
+    <span class="opt-cost">~¥5,000–7,000 · 40–50 min</span>
+  </div>
+  <p>No stairs, no transfers, no hauling suitcases up to a monorail with two tired kids. For a solo parent + Andy + Katherine + luggage, this is worth every yen.</p>
+  <ul class="steps">
+    <li><b>Ask the MIMARU front desk to call a taxi</b> when you check out (~11 AM). <span class="sub">Or use the GO taxi app.</span></li>
+    <li><b>Show the driver the address</b> (screenshot this): <span class="ja">千葉県浦安市舞浜1-8 ヒルトン東京ベイ</span></li>
+    <li><b>Ride ~45 min</b> via the Shuto Expressway along the bay — straight to the Hilton entrance.</li>
+    <li><b>Drop bags with Hilton Lobby Service</b> (they hold luggage from 7 AM), then go enjoy the gap.</li>
+  </ul>
+  <div class="btns">
+    <a class="btn go" href="https://www.google.com/maps/dir/?api=1&origin=Mimaru+Tokyo+Ginza+East&destination=Hilton+Tokyo+Bay+Maihama&travelmode=driving" target="_blank" rel="noopener">🧭 Driving route</a>
+    <a class="btn apple" href="http://maps.apple.com/?daddr=Hilton+Tokyo+Bay,+1-8+Maihama,+Urayasu,+Chiba&dirflg=d" target="_blank" rel="noopener"> Apple Maps</a>
+  </div>
+</div>
+
+<!-- Option B: Train -->
+<div class="card">
+  <div class="opt-head">
+    <div class="opt-name">Option B — Train, direct line 🚆</div>
+    <span class="opt-cost">~¥230 · ~35 min</span>
+  </div>
+  <p>Cheapest and genuinely easy <i>if</i> the bags are light: your area has a <b>direct JR line to Maihama with no transfers</b>. The only awkward bit is the final monorail/shuttle with luggage.</p>
+  <ul class="steps">
+    <li><b>Walk to Hatchōbori Station</b> <span class="sub">(~5–8 min from the hotel).</span></li>
+    <li><b>JR Keiyō Line → Maihama Station</b> <span class="sub">~13 min, direct, runs every ~15 min. Stay on toward Soga / Kaihimmakuhari.</span></li>
+    <li><b>At Maihama, take the Disney Resort Line monorail 1 stop → Bayside Station</b> <span class="sub">(Hilton is right there). A free shuttle bus from Bayside Station also runs to the hotel door.</span></li>
+    <li><b>Drop bags at Hilton Lobby Service</b> (held from 7 AM).</li>
+  </ul>
+  <div class="btns">
+    <a class="btn go" href="https://www.google.com/maps/dir/?api=1&origin=Hatchobori+Station+Tokyo&destination=Maihama+Station&travelmode=transit" target="_blank" rel="noopener">🧭 Train route (transit)</a>
+    <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Hatchobori+Station+Tokyo" target="_blank" rel="noopener">📍 Hatchōbori Stn</a>
+  </div>
+  <div class="note">💡 Tip: if you take the train but bags are heavy, just take a taxi from <b>Maihama Station → Hilton</b> for the last bit (~¥1,000) instead of the monorail.</div>
+</div>
+
+<!-- ============================ LUGGAGE ============================ -->
+<h2 id="luggage">🧳 Luggage plan</h2>
+<div class="ok"><b>Cleanest option — no lockers, no fees:</b> bring the bags with you and <b>drop them at Hilton Tokyo Bay’s Lobby Service.</b> The hotel accepts and holds luggage from <b>7:00 AM</b>, long before the 3 PM room check-in. Drop → explore → come back and check in.</div>
+<ul>
+  <li><b>Don’t want to carry them at all?</b> MIMARU front desk will hold bags free after your 11 AM checkout — but since you’re heading to the Hilton anyway, dropping at the Hilton is simpler.</li>
+  <li><b>Coin lockers at Maihama Station</b> — backup if you arrive before you want to go to the hotel. Largest size ~¥800, near the north/south exits.</li>
+  <li><b>Welcome Center luggage service</b> — the Tokyo Disney Resort Welcome Center near Maihama Station (08:00–15:00) can forward bags to your Hilton room, but the room delivery only completes after 17:00 — so for a same-day check-in, the Lobby Service drop is better.</li>
+</ul>
+
+<!-- ============================ GAP ============================ -->
+<h2 id="gap">⏳ Filling the 11 AM – 3 PM gap</h2>
+<p>After dropping bags you’ll be free around the Maihama/Disney area by ~noon. Easiest options:</p>
+<div class="card">
+  <div class="place">
+    <h3>Ikspiari mall 🛍️ — best low-effort pick</h3>
+    <div class="meta">Right at Maihama Station, 2 min walk · free entry · indoor, air-conditioned</div>
+    <p>Big shopping + dining complex next to Disney. Easy lunch, kids can roam, souvenirs, a movie theater. Perfect for killing a few hours without committing to a park.</p>
+    <div class="btns">
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=Ikspiari+Maihama" target="_blank" rel="noopener">📍 Google Maps</a>
+    </div>
+  </div>
+  <div class="place">
+    <h3>Other gap ideas</h3>
+    <ul>
+      <li><b>Bayside / waterfront stroll</b> around the official-hotel area — calm, scenic, free.</li>
+      <li><b>Hilton pool / kids’ area</b> — ask if you can use facilities before the room is ready.</li>
+      <li><b>Tokyo Disneyland / DisneySea</b> — only if you already hold tickets; 3 hours is too short to justify the price, so save it for Jun 12.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="timeline" style="margin-top:14px">
+  <div class="row"><div class="when">11:00</div><div class="what">Check out of MIMARU; front desk calls a taxi.</div></div>
+  <div class="row"><div class="when">~11:50</div><div class="what">Arrive Hilton Tokyo Bay; drop bags at Lobby Service.</div></div>
+  <div class="row"><div class="when">12:00–2:30</div><div class="what">Lunch + browse at Ikspiari (or pool / waterfront).</div></div>
+  <div class="row"><div class="when">3:00</div><div class="what">Official check-in at Hilton. Family Ocean-View room.</div></div>
+</div>
+
+<!-- ============================ REFERENCE ============================ -->
+<h2 id="ref">🧰 Quick reference</h2>
+<div class="ref">
+  <b>Show your taxi driver (screenshot):</b><br>
+  → To Hilton: <span class="ja">千葉県浦安市舞浜1-8 ヒルトン東京ベイ</span><br>
+  → To MIMARU: <span class="ja">中央区新富1-4-4 ミマル東京銀座イースト</span><br><br>
+  <b>Hilton Tokyo Bay</b> · 1-8 Maihama, Urayasu, Chiba 279-0031 · Lobby Service holds bags from 7 AM · check-in 3 PM<br>
+  <b>MIMARU Ginza East</b> · ☎ 03-6280-4017 · checkout 11 AM<br><br>
+  <span class="pill">Pokémon Café closed → Jun 16</span>
+  <span class="pill">Maihama lockers ~¥800</span>
+  <span class="pill">Direct JR Hatchōbori → Maihama</span>
+</div>
+
+<div class="note" style="margin-top:14px">
+  📖 Want the full 7-day plan (flights, Disney day, data SIM, checklists)? See the <a href="trip.html">complete trip playbook →</a>
+</div>
+
+<hr>
+<p class="foot">Made for the family · open in any browser or share in WeChat · maps open in Google/Apple Maps.<br>Tokyo, June 2026.</p>
+
+</body>
+</html>
